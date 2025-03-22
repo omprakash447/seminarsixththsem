@@ -23,7 +23,7 @@ export default function StudentsPage() {
   const fetchSeminars = async () => {
     setLoading(true);
     try {
-      const response = await fetch("/api/get");
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get`);
 
       if (!response.ok) {
         throw new Error("Failed to fetch seminars");

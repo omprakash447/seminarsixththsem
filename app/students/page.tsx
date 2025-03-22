@@ -23,26 +23,28 @@ export default function StudentsPage() {
   const fetchSeminars = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/get`);
-
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000"; // ✅ Ensure correct URL
+      const response = await fetch(`${apiUrl}/api/get`);
+  
       if (!response.ok) {
         throw new Error("Failed to fetch seminars");
       }
-
+  
       const data = await response.json();
-      console.log("Fetched Data:", data); // ✅ Debugging log
-
+      console.log("✅ Fetched Data:", data);
+  
       if (Array.isArray(data.data)) {
-        setStudents(data.data); // ✅ Corrected: Accessing `data.data`
+        setStudents(data.data);
       } else {
-        console.error("Unexpected data format:", data);
+        console.error("❌ Unexpected data format:", data);
       }
     } catch (error) {
-      console.error("Error fetching seminars:", error);
+      console.error("❌ Error fetching seminars:", error);
     } finally {
       setLoading(false);
     }
   };
+  
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-secondary p-8">
